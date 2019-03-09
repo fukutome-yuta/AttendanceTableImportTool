@@ -90,8 +90,6 @@ function FileTransmission(){
   var thisYear = d.getFullYear();
   var thisMonth = d.getMonth() + 1;
   
-  //var to = 'kintai@nodecom.jp';
-  //var cc = 'r.ishikawa@bright-g.jp';
   var to = '';
   var cc = '';
   var title = '勤務表 ' + thisYear + '年' + thisMonth + '月分';
