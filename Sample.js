@@ -18,6 +18,8 @@ window.onbeforeunload = function(){
 }
 
 //URLパラメータを配列にする処理
+<!-- JSON形式の文字列を処理する為のファイル -->
+<script src="json2.js"></script>
 window.onload = function(){
 	var params = {};
 	var urlParameters = [];
