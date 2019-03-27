@@ -387,3 +387,29 @@ if($Status -eq "Stopped"){
 
 # ログの出力
 Log "$HostName" "$Status" "$Log" "$ServiceName"
+
+
+//押下されたボタンを判定
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+  <title>サンプル</title>
+  <script>
+    window.onload = function(){
+      var b1 = document.getElementById("btn1");
+      var b2 = document.getElementById("btn2");
+      b1.onclick = function(){
+        alert("ボタン1が押されました。")
+      }
+      b2.onclick = function(){
+        alert("ボタン2が押されました。")
+      }
+    };
+</script>
+</head>
+<body>
+  <input type="button" id="btn1" value="ボタン1">
+  <input type="button" id="btn2" value="ボタン2">
+</body>
+</html>
