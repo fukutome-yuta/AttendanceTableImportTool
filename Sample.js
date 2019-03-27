@@ -163,3 +163,45 @@ function getValue(){
 	
 	End Function  
     </SCRIPT>
+
+//PDF表示機能
+//test.html?param1=test&param2=sampleの場合
+//window.location.searchをURLSearchParamsに渡す　IEだと動かない！！！
+var urlParams = new URLSearchParams(window.location.search);
+
+//param1の値を取得する
+urlParams.get('param1');
+//path を変数に格納
+var path = urlParams.get('param1');
+
+openPdf(path);
+//新規ウィンドウでPDFを表示
+function openPdf(path){
+  window.open(path, null, "top=100,left=100,width=300,height=400");
+}
+
+//押下されたボタンのIDを取得
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function getElement(){
+                const id = event.target.id;
+                alert(id);                
+                const array = ["リンゴ", "ばなな", "オレンジ"];
+                alert(array);
+                const val = document.getElementById("label");
+                alert(val.value);
+                //document.getElementById("label").value = array;
+            }
+        </script>
+    </head>
+    <body>
+        <tr>
+            <input type="button" name="btn1" id="ぼたん１" value="ボタン1" onclick="getElement();">
+        </tr>
+        <tr>
+            <input type="label" id="label" value="ばりゅー">
+        </tr>
+    </body>
+</html>
