@@ -188,22 +188,14 @@ function openPdf(path){
     <head>
         <script>
             function getElement(){
-                const id = event.target.id;
-                alert(id);                
-                const array = ["リンゴ", "ばなな", "オレンジ"];
-                alert(array);
-                const val = document.getElementById("label");
-                alert(val.value);
-                //document.getElementById("label").value = array;
+                let id = event.target.id;
+                alert(id);
             }
         </script>
     </head>
     <body>
         <tr>
             <input type="button" name="btn1" id="ぼたん１" value="ボタン1" onclick="getElement();">
-        </tr>
-        <tr>
-            <input type="label" id="label" value="ばりゅー">
         </tr>
     </body>
 </html>
