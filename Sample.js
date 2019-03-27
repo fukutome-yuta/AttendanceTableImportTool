@@ -205,3 +205,39 @@ function openPdf(path){
         </tr>
     </body>
 </html>
+
+//jQueryでタブの切り替え
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Tabs - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/demos/style.css" />
+  <script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
+  </script>
+</head>
+<body>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tab1">タブ1</a></li>
+            <li><a href="#tab2">タブ2</a></li>
+            <li><a href="#tab3">タブ3</a></li>
+        </ul>
+        <div id="tab1">
+            <h1>tab1</h1>
+        </div>
+        <div id="tab2">
+            <h1>tab2</h1>
+        </div>
+        <div id="tab3">
+            <h1>tab3</h1>
+        </div>
+    </div>
+</body>
+</html>
