@@ -1,14 +1,15 @@
 //JavaScript Sample Program
-//ウィンドウ×閉じボタン押下時のイベント取得
+//ウィンドウ✕閉じボタン押下時のイベント取得
 var result = false; //window.onbeforeunloadの条件分岐用
 window.onload = function(){
 
-    //×ボタン以外に画面遷移のボタンがあれば処理を分ける
+    //✕ボタン以外に画面遷移のボタンがあれば処理を分ける
     var btn1  = document.getElementById("button1");
     btn1.onclick  = function(){
         result = true;
     }
 }
+//画面遷移処理は問答無用でイベントが発火するので条件分岐を加えて✕ボタンのみを検知する
 window.onbeforeunload = function(){
     if(result){
         //処理
