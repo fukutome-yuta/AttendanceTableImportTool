@@ -241,3 +241,65 @@ function openPdf(path){
     </div>
 </body>
 </html>
+
+//PDF表示
+<html>
+<head>
+  <title>pdftest</title>
+  <script type="text/javascript">
+    onload = function () {
+      var btn1 = document.getElementById("button1");
+      btn1.onclick = function () {
+        //Divの中身をクリア
+        var element = document.getElementById("div_PDF").childNodes[0];
+        if(element!=undefined){
+          document.getElementById("div_PDF").removeChild(element);
+        }
+ 
+        //OBJECTタグを作成
+        var obj = document.createElement('object');
+        obj.setAttribute('id', 'objPdf');
+        obj.setAttribute('classid', 'clsid:CA8A9780-280D-11CF-A24D-444553540000'); // PDFのクラスID（固定値）
+        obj.setAttribute('style', 'width:500px; height:700px;');
+ 
+        //PDFのソースを設定
+        var param = document.createElement('param');
+        param.setAttribute('name', 'src');
+        param.setAttribute('value', 'file:///C:\\sample.pdf');
+        //param.setAttribute('value', 'PDFのURLを記述');
+        obj.appendChild(param);
+ 
+        //作成したOBJECTタグをDIVタグの中にセット
+        var div = document.getElementById("div_PDF");
+        div.appendChild(obj);
+      }
+ 
+      var btn2 = document.getElementById("button2");
+      btn2.onclick = function () {
+        //Divの中身をクリア
+        var element = document.getElementById("div_PDF").childNodes[0];
+        if (element != undefined) {
+          document.getElementById("div_PDF").removeChild(element);
+        }
+ 
+        var emb = document.createElement('embed');
+        emb.setAttribute('width', '500');
+        emb.setAttribute('height', '700');
+        emb.src = "file:///C:\\sample.pdf";
+        //emb.src ="PDFのURLを記述";
+ 
+        //作成したOBJECTタグをDIVタグの中にセット
+        var div = document.getElementById("div_PDF");
+        div.appendChild(emb);
+      } 
+    }
+  </script>
+</head>
+<body>
+  <form id="form1">
+    <div id="div_PDF" style="width:520px; height:780px; background:#ccc"></div>
+    <input type="button" id="button1" onclick="button1_click" value="object PDF表示" />
+    <input type="button" id="button2" onclick="button1_click" value="embed PDF表示"/>
+  </form>
+</body>
+</html>
