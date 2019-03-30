@@ -1,5 +1,5 @@
-var channel_access_token = "ZzhFa3hEp9qCiOAAzzQEiUZSAVrHbWwlCCHT3HDOmjvpbD9KCbEiAT7Jbh4PpkRpPM6OlFl9ZKfVmzq201hLDKQGBYxj0/yEcToTbWsJTMML3ACA/hPdGEOBskiwiFaP1IB1lwEh+Ht3ExpQh1uTFgdB04t89/1O/w1cDnyilFU="
-var My_ID = "U66a8786255470b69144e9c229f37e462";
+var channel_access_token = ""
+var My_ID = "";
 // ボットにメッセージ送信/フォロー/アンフォローした時の処理
 function doPost(e) {
     var events = JSON.parse(e.postData.contents).events;
@@ -44,9 +44,9 @@ function reply(event) {
 
 function assignTheOperation(event){
     var receivedText = event.message.text.split(" ");
-    var ronTechDoc = SpreadsheetApp.openById("1M-EnNlvPzAFQ1kfUSCRsxGbMNVhQRDTPYfonGcUzz6g");
+    var ronTechDoc = SpreadsheetApp.openById("");
     var ronTechSh = ronTechDoc.getSheetByName('勤務表');
-    var brightDoc = SpreadsheetApp.openById("1smr1DxwBi5R9EyBg2lQEzWB6Y68WYCkG2rU66G99mxs");
+    var brightDoc = SpreadsheetApp.openById("");
     var brightRosterSh = brightDoc.getSheetByName("勤務表");
     
     if(isNaN(receivedText[0])){
@@ -184,15 +184,15 @@ function CapturingFile(ronTechSh, brightRosterSh, brightDoc) {
 
 function FileTransmission(destination){
     if(destination == "ロンテック"){
-        var attachmentFile = DriveApp.getFileById("1M-EnNlvPzAFQ1kfUSCRsxGbMNVhQRDTPYfonGcUzz6g");
+        var attachmentFile = DriveApp.getFileById("");
         var xlsxName = attachmentFile.getName() + ".xlsx";
         //エクスポート用のURL
-        var fetchUrl = "https://docs.google.com/feeds/download/spreadsheets/Export?key=1M-EnNlvPzAFQ1kfUSCRsxGbMNVhQRDTPYfonGcUzz6g&amp;exportFormat=xlsx";
+        var fetchUrl = "https://docs.google.com/feeds/download/spreadsheets/Export?key=&amp;exportFormat=xlsx";
     }else if(destination == "ブライト"){
-        var attachmentFile = DriveApp.getFileById("1smr1DxwBi5R9EyBg2lQEzWB6Y68WYCkG2rU66G99mxs");
+        var attachmentFile = DriveApp.getFileById("");
         var xlsxName = attachmentFile.getName() + ".xlsx";
         //エクスポート用のURL
-        var fetchUrl = "https://docs.google.com/feeds/download/spreadsheets/Export?key=1smr1DxwBi5R9EyBg2lQEzWB6Y68WYCkG2rU66G99mxs&amp;exportFormat=xlsx";
+        var fetchUrl = "https://docs.google.com/feeds/download/spreadsheets/Export?key=&amp;exportFormat=xlsx";
     }  
     //OAuth2対応
     var fetchOpt = {
@@ -205,18 +205,16 @@ function FileTransmission(destination){
     var thisYear = d.getFullYear();
     var thisMonth = d.getMonth() + 1;
     
-    var to = 'kintai@nodecom.jp';
-    var cc = 'r.ishikawa@bright-g.jp';
-    //var to = 'a.zero.yu@gmail.com';
-    //var cc = 'y.fukutome@bright-g.jp';
-    var title = '福留_勤務表 ' + thisYear + '年' + thisMonth + '月分';
-    var signature = '\n\n◇◆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◆◇\n株式会社ブライトスフィア\nURL:http://www.bright-g.jp/index.html\n\n■Office：〒160-0023\n東京都新宿区西新宿6-15-1\nセントラルパークタワー　ラ・トゥール新宿 409\n　TEL ： 03-6279-4673\n\　FAX ： 03-6279-4674\n\n福留　祐太【YUTA FUKUTOME\n　携帯 ： 090-6048-9045\n　E-mail ： y.fukutome@bright-g.jp\n◇◆━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━◆◇';
-    var text = '各位\n\nお疲れ様です。BRS福留です。\n今月分の勤務表を送付致します。\nご確認よろしくお願いいたします。';
+    var to = '';
+    var cc = '';
+    var title = '勤務表 ' + thisYear + '年' + thisMonth + '月分';
+    var signature = '';
+    var text = '各位\n\nお疲れ様です。\n今月分の勤務表を送付致します。\nご確認よろしくお願いいたします。';
     var otherInfo = {
         attachments: xlsxFile,
         cc: cc,
-        from: 'bright <y.fukutome@bright-g.jp>',
-        name: '福留祐太'
+        from: '',
+        name: ''
     }
     var body = text + signature;
     GmailApp.createDraft(to, title, body, otherInfo);
