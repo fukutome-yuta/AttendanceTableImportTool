@@ -14,7 +14,6 @@ function doPost(e) {
     });
 }
 
-// 入力されたメッセージをおうむ返し
 function reply(event) {
     var replyMessage = "";
     if(event.message.type == "text"){
