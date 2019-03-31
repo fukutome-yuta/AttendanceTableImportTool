@@ -58,7 +58,7 @@ function assignTheOperation(event){
                 break;
             case "月更新":
                 ronTechSh.getRange("D1").setValue(receivedText[1]);
-                return "ロンテック勤務表を「" + receivedText[1] + "月」に更新したよ！";
+                return "勤務表を「" + receivedText[1] + "月」に更新したよ！";
                 break;
             case "事由":
                 var targetRowForReason = findRow(ronTechSh, receivedText[2]);
@@ -73,7 +73,7 @@ function assignTheOperation(event){
             case "退勤":
                 var target = updateClockInOut(ronTechSh, receivedText);
                 ronTechSh.getRange("D" + target[0]).setValue(receivedText[1]);
-                return target[1] + "の退勤時刻を更新したよ！";
+                return target[1] + "の退勤時刻を更新したよ！" + target[2];
                 break;
             case "取り込み":
                 CapturingFile(ronTechSh, brightRosterSh, brightDoc);
@@ -82,12 +82,16 @@ function assignTheOperation(event){
             case "メール":
                 FileTransmission(receivedText[1]);
                 var sendMailReport;
-                if(receivedText[1] == "ロンテック"){
-                    sendMailReport = "ロンテック勤務表を添付したメールを下書きに保存したよ！";
-                }else if(receivedText[1] == "ブライト"){
-                    sendMailReport = "ブライト勤務表を添付したメールを下書きに保存したよ！";
+                if(receivedText[1] == ""){
+                    sendMailReport = "勤務表を添付したメールを下書きに保存したよ！";
+                }else if(receivedText[1] == ""){
+                    sendMailReport = "勤務表を添付したメールを下書きに保存したよ！";
                 }
                 return sendMailReport;
+                break;
+            case "使い方":
+                var usage = "※入力時の注意点\nコマンドはすべて単語ごとに半角スペースで区切る\n先頭にスペースが入ってしまってもNG\n\n①出退勤時刻の更新\n「出勤 9:00」で今日の出勤時刻を更新\n「出勤 9:00 12」だと、12日の出勤時刻を更新\n退勤時刻も同様\n②休みの更新\n「12 年休」で12日を年休として更新\n③事由の更新\n「事由 午前休 12」で12日の事由を午前休で更新\n【事由一覧】\n[ 年休、午前休、午後休、早退、遅刻、欠勤、休業日 ]\n④月の更新\n「月更新 4」でシートを4月に更新\n⑤Suica購入日更新\n「Suica 4/8」でSuica定期券購入日を4/8に更新\n⑥現場勤務表データを自社勤務表へ取り込み\n「取り込み」で取り込みを行う\n⑦メール作成、下書き保存\n「メール ロンテック」でロンテック勤務表を添付したメールを作成し下書きに保存する\n「メール ブライト」でブライト勤務表を添付したメールを作成し下書き保存する\n※毎月18日にロンテック勤務表、月末に自社勤務表をそれぞれ提出\n該当日が土日の場合は直前の出勤日にアナウンスを行う"
+                return usage;
                 break;
         }
     }else{
@@ -118,9 +122,11 @@ function updateClockInOut(ronTechSh, receivedText){
         var sendBright = sendMailJudge(tmpsendBright);
         var message;
         if(today.getDate() == sendRontech){
-            message = "今日はロンテック勤務表提出日だよ！確認してメールを送ってね！";
+            message = "今日は勤務表提出日だよ！確認してメールを送ってね！";
         }else if(today.getDate() == sendBright){
-            message = "今日は自社勤務表提出日だよ！確認してメールを送ってね！";
+            message = "今日は勤務表提出日だよ！確認してメールを送ってね！";
+        }else{
+            message = "";
         }
         date = "今日";
         targetRowForclock = findRow(ronTechSh, today.getDate());
@@ -136,6 +142,8 @@ function sendMailJudge(tmpDay){
         return tmpDay.getDate() - 2;
     }else if(tmpDay.getDay() == 6){
         return tmpDay.getDate() - 1;
+    }else{
+        return tmpDay.getDate();
     }
 }
 function CapturingFile(ronTechSh, brightRosterSh, brightDoc) {  
@@ -183,16 +191,19 @@ function CapturingFile(ronTechSh, brightRosterSh, brightDoc) {
 }
 
 function FileTransmission(destination){
-    if(destination == "ロンテック"){
+    var text;
+    if(destination == ""){
         var attachmentFile = DriveApp.getFileById("");
         var xlsxName = attachmentFile.getName() + ".xlsx";
         //エクスポート用のURL
         var fetchUrl = "https://docs.google.com/feeds/download/spreadsheets/Export?key=&amp;exportFormat=xlsx";
-    }else if(destination == "ブライト"){
+        text = '各位\n\nお疲れ様です。\n今月分の現場勤務表を送付致します。\nご確認よろしくお願いいたします。';
+    }else if(destination == ""){
         var attachmentFile = DriveApp.getFileById("");
         var xlsxName = attachmentFile.getName() + ".xlsx";
         //エクスポート用のURL
         var fetchUrl = "https://docs.google.com/feeds/download/spreadsheets/Export?key=&amp;exportFormat=xlsx";
+        text = '各位\n\nお疲れ様です。\n今月分の自社勤務表を送付致します。\nご確認よろしくお願いいたします。';
     }  
     //OAuth2対応
     var fetchOpt = {
@@ -209,7 +220,6 @@ function FileTransmission(destination){
     var cc = '';
     var title = '勤務表 ' + thisYear + '年' + thisMonth + '月分';
     var signature = '';
-    var text = '各位\n\nお疲れ様です。\n今月分の勤務表を送付致します。\nご確認よろしくお願いいたします。';
     var otherInfo = {
         attachments: xlsxFile,
         cc: cc,
