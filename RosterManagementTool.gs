@@ -57,6 +57,7 @@ function assignTheOperation(event){
                 break;
             case "月更新":
                 ronTechSh.getRange("D1").setValue(receivedText[1]);
+                ronTechDoc.rename('現場勤務表 2019年' + receivedText[1] + '月分');
                 return "勤務表を「" + receivedText[1] + "月」に更新したよ！";
                 break;
             case "事由":
@@ -91,6 +92,9 @@ function assignTheOperation(event){
             case "使い方":
                 var usage = "※入力時の注意点\nコマンドはすべて単語ごとに半角スペースで区切る\n先頭にスペースが入ってしまってもNG\n\n①出退勤時刻の更新\n「出勤 9:00」で今日の出勤時刻を更新\n「出勤 9:00 12」だと、12日の出勤時刻を更新\n退勤時刻も同様\n②休みの更新\n「12 年休」で12日を年休として更新\n③事由の更新\n「事由 午前休 12」で12日の事由を午前休で更新\n【事由一覧】\n[ 年休、午前休、午後休、早退、遅刻、欠勤、休業日 ]\n④月の更新\n「月更新 4」でシートを4月に更新\n⑤Suica購入日更新\n「Suica 4/8」でSuica定期券購入日を4/8に更新\n⑥現場勤務表データを自社勤務表へ取り込み\n「取り込み」で取り込みを行う\n⑦メール作成、下書き保存\n「メール 現場」で現場勤務表を添付したメールを作成し下書きに保存する\n「メール 自社」で自社勤務表を添付したメールを作成し下書き保存する\n※毎月18日に勤務表、月末に自社勤務表をそれぞれ提出\n該当日が土日の場合は直前の出勤日にアナウンスを行う"
                 return usage;
+                break;
+            default :
+                return "コマンドが間違ってるよ！\nわからないときは「使い方」で確認してね！";
                 break;
         }
     }else{
