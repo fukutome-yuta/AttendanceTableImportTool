@@ -19,7 +19,7 @@ function reply(event) {
     if(event.message.type == "text"){
         replyMessage = assignTheOperation(event);
     }else{
-        replyMessage = "Text以外は返せません・・・";
+        replyMessage = "コマンドが間違ってるよ！\nわからないときは「使い方」で確認してね！";
     }
     var message = {
         "replyToken" : event.replyToken,
