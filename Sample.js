@@ -323,3 +323,9 @@ function openPdf(path){
   <input type="button" id="btn2" value="ボタン2">
 </body>
 </html>
+
+//元号表記
+var dt = new Date();
+var opt = {era:'short',year:'numeric',month:'long',day:'numeric'};
+var wareki = dt.toLocaleDateString("ja-JP-u-ca-japanese", opt);
+console.log(wareki);
