@@ -58,6 +58,7 @@ function assignTheOperation(event){
             case "月更新":
                 ronTechSh.getRange("D1").setValue(receivedText[1]);
                 ronTechDoc.rename('現場勤務表 2019年' + receivedText[1] + '月分');
+                defaultSetValue(ronTechSh, receivedText[1]);
                 return "勤務表を「" + receivedText[1] + "月」に更新したよ！";
                 break;
             case "事由":
@@ -103,6 +104,20 @@ function assignTheOperation(event){
         ronTechSh.getRange("D" + targetRowForHoliday).setValue("");
         ronTechSh.getRange("I" + targetRowForHoliday).setValue(receivedText[1]);
         return receivedText[0] + "日を休日に更新したよ！";
+    }
+}
+function defaultSetValue(sheet, month){
+    var todat = new Date();
+    var endOfMonth = new Date(today.getFullYear(), month, 0);
+    var thisMonthOfDays = sheet.getRange(10, 2, endOfMonth.getDate()).getValues();
+    var weekDay = thisMonthOfDays.filter(function(day){
+        if(day.getValue() != ("土" || "日" || "祝" || "休")){
+            return day.getNumRows();
+        }        
+    });
+    for(var i=0; i<=weekDay.length; i++){
+        sheet.getRange(weekDay, 3).setValue("9:00");
+        sheet.getRange(weekDay, 4).setValue("18:00");
     }
 }
 function findRow(sheet, date){
