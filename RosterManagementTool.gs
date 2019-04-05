@@ -157,9 +157,9 @@ function updateClockInOut(ronTechSh, receivedText){
 }
 function sendMailJudge(tmpDay){
     if(tmpDay.getDay() == 0){
-        return tmpDay.getDate() - 2;
+        return tmpDay.getDate() - 3;
     }else if(tmpDay.getDay() == 6){
-        return tmpDay.getDate() - 1;
+        return tmpDay.getDate() - 2;
     }else{
         return tmpDay.getDate();
     }
