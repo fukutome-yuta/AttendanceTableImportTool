@@ -329,3 +329,40 @@ var dt = new Date();
 var opt = {era:'short',year:'numeric',month:'long',day:'numeric'};
 var wareki = dt.toLocaleDateString("ja-JP-u-ca-japanese", opt);
 console.log(wareki);
+
+//showModalDialogの代替機能（マルチブラウザで使えるやつ）
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/smoothness/jquery-ui.css" type="text/css" media="all" /> 
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+<script>
+    function openAsDialog(url) {
+        var iframeStyle = 'min-width     : 100%; ' +
+                        'height        : 100%; ' +
+                        'padding-top   : 0.2em; ' +
+                        'padding-right : 0; ' +
+                        'padding-bottom: 0.8em; ' +
+                        'padding-left  : 0;';
+        var iframe = $('<iframe frameborder="0" src="' + url + '" style="' + iframeStyle + '"></iframe>');
+        var dialogOptions = {
+            width : 640,
+            height: 480,
+            title : 'モーダル',
+            modal : true
+        };
+        iframe.dialog(dialogOptions, {
+            close: function(event){
+                alert('モーダルを閉じました');
+            }
+        });
+    }
+</script>
+    <title>Document</title>
+</head>
+<body>
+    <a href="#" onclick="openAsDialog('http://www.oa.ntt-tx.co.jp/')">モーダル</a>
+    <input type="checkbox">
+</body>
+</html>
